@@ -1,0 +1,26 @@
+<!-- admin_login.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Home - {{ super() }}{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">Admin Login</h1>
+<form class="w-50 h-50 mt-5" method="POST" action="{{ url_for('admin_login') }}">
+        <div class="row mb-3">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="username" id="inputEmail3">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" name="password" id="inputPassword3">
+          </div>
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      
+</form>
+{% endblock %}

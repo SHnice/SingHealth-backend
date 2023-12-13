@@ -1,0 +1,26 @@
+<!-- home.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Home - {{ super() }}{% endblock %}
+
+{% block content %}
+    <h1 class="mt-5">Welcome to the School Management System</h1>
+    {% if schools %}
+        <div class="row mt-4">
+            {% for school in schools %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title ">{{ school[1] }}</h3>
+
+                            <a href="{{ url_for('register', school_id=school[0]) }}" class="btn btn-primary">Register</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="mt-5">No schools found.</p>
+    {% endif %}
+{% endblock %}

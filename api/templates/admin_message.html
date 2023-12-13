@@ -1,0 +1,17 @@
+<!-- admin_message.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Admin Message - {{ super() }}{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">Send Message to Parent</h1>
+<form method="post" action="{{ url_for('admin_message', student_id=student_id, school_id=school_id) }}">
+  <label for="input" class="">Send Message</label>
+  <div class="">
+    <textarea type="text" class="form-control" name="message_content" id="input" required></textarea>
+  </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+{% endblock %}

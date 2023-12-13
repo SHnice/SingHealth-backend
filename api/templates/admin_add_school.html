@@ -1,0 +1,31 @@
+<!-- admin_add_school.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Home - {{ super() }}{% endblock %}
+
+{% block content %}
+<h1 class="mt-3">Add School - Admin</h1>
+    
+    {% if 'admin_logged_in' not in session or not session['admin_logged_in'] %}
+        <p>Please log in as an admin.</p>
+    {% else %}
+        <form class="w-50 h-50 mt-2" method="POST" action="{{ url_for('admin_add_school') }}">
+            <div class="row mb-3">
+                <label for="input" class="">School Name</label>
+                <div class="">
+                  <input type="text" name="new_school_name" class="form-control" name="username" id="input">
+                </div>
+            </div>
+             
+              <button type="submit" class="btn btn-primary">Add School</button>
+        </form>
+
+        <h3 class="mt-4">Existing Schools:</h3>
+        <ol>
+            {% for school in existing_schools %}
+                <li type="1"><a href="{{ url_for('admin_review', school_id=school[0]) }}" class="">{{ school[1] }}</a></li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+<!-- document_submission.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Document Submission - {{ super() }}{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">Document Submission</h1>
+<p>Upload your required documents below:</p>
+
+  <div class="row mt-5">
+    <div class="col-lg-4 col-lg-offset-4" id="content">
+      
+      <form method="POST" role="form">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="file" class="form-control" id="upload-btn" placeholder="Upload Files" name="description" >
+          </div>
+        </div>
+
+        <ul class="mt-1" id="uploaded-filenames">
+        </ul>
+        <div id="filestack-handles">
+        </div>
+      
+        <div class="row t10">
+          <div class="col-lg-12">
+            <div class="btn-group ">
+              <button type="submit" class="btn btn-warning mt-2">
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <ul class="list-group t20">
+        {% for f in files %}
+        <li class="list-group-item">
+          {{ f.filename }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+
+{% endblock %}

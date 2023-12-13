@@ -1,0 +1,50 @@
+<!-- admin_review.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Review - {{ super() }}{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">Admin Review</h1>
+<table class="table mt-4">
+  <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Student Name</th>
+        <th scope="col">Class</th>
+        <th scope="col">Parent Name</th>
+        <th scope="col">Parent Email</th>
+        <th scope="col">Status</th>
+        <th scope="col"> Document </th>
+        <th scope="col">Actions</th>
+      </tr>
+  </thead>
+  <tbody>
+      {% for application in applications %}
+          <tr> 
+              <th scope="row">{{loop.index}}</th>
+              <td>{{ application[3] }}</td>
+              <td>{{ application[6] }}</td>
+              <td>{{ application[2] }}</td>
+              <td>{{ application[4] }}</td>
+              <td>{{ application[5] }}</td>
+              <td>
+                {% if application[8] %}
+                    <ol>
+                        {% for document_path in application[8].split(',') %}
+                            <li type="1"><a href="{{ document_path }}" target="_blank">View Document</a></li>
+                        {% endfor %}
+                    </ol>
+                {% else %}
+                    No Documents
+                {% endif %}
+            </td>
+              <td>
+                  <a class="text-success me-4" href="{{ url_for('admin_accept', student_id=application[0], school_id=school_id) }}">Accept</a><br>
+                  <a class="text-danger me-4" href="{{ url_for('admin_reject', student_id=application[0], school_id=school_id) }}">Reject</a><br>
+                  <a href="{{ url_for('admin_message', student_id=application[0], school_id=school_id) }}">Send Message</a>
+              </td>
+          </tr>
+      {% endfor %}
+  </tbody>
+{% endblock %}
