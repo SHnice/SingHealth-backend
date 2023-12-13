@@ -6,15 +6,8 @@ from bson import ObjectId
 # from flask.json import JSONEncoder
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
-# class CustomJSONEncoder(JSONEncoder):
-#     def default(self, obj):
-#         if isinstance(obj, ObjectId):
-#             return str(obj)
-#         return super().default(obj)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
-# app.json_encoder = CustomJSONEncoder
-# Configure MongoDB connection
 app.config['MONGO_URI'] = 'mongodb+srv://arsal0344:03444800061@cluster0.u6h8hwf.mongodb.net/healthdb?retryWrites=true&w=majority'
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)  
