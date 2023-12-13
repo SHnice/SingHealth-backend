@@ -1,18 +1,19 @@
 from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
-from flask_cors import CORS
+from flask_cors import CORS,cross_origin
 from flask_bcrypt import Bcrypt  
 from bson import ObjectId 
 # from flask.json import JSONEncoder
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['MONGO_URI'] = 'mongodb+srv://arsal0344:03444800061@cluster0.u6h8hwf.mongodb.net/healthdb?retryWrites=true&w=majority'
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)  
 
 @app.route('/get-doctors', methods=['GET'])
+@cross_origin()
 def get_doctors():
     doctors_collection = mongo.db.doctors
     doctors = list(doctors_collection.find({}, {'_id': 1, 'name': 1, 'email': 1}))
@@ -24,6 +25,7 @@ def get_doctors():
     return jsonify(doctors)
 
 @app.route('/register-doctor', methods=['POST'])
+@cross_origin()
 def register_doctor():
     # Get data from the request
     data = request.get_json()
@@ -57,6 +59,7 @@ def register_doctor():
 
 # Define the edit-doctor endpoint
 @app.route('/edit-doctor/<string:doctor_id>', methods=['PUT'])
+@cross_origin()
 def edit_doctor(doctor_id):
     # Get data from the request
     data = request.get_json()
@@ -79,6 +82,7 @@ def edit_doctor(doctor_id):
 
 # Define the delete-doctor endpoint
 @app.route('/delete-doctor/<string:doctor_id>', methods=['DELETE'])
+@cross_origin()
 def delete_doctor(doctor_id):
     # Delete the doctor from MongoDB
     doctors_collection = mongo.db.doctors
